@@ -1,3 +1,6 @@
+"""
+    Main file of the project.
+"""
 from src.diagram import Diagram
 from src.symbol import Symbol
 

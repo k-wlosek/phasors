@@ -1,3 +1,6 @@
+"""
+This module contains the Diagram class, which represents a phasor diagram.
+"""
 from typing import Union
 import io
 import matplotlib.pyplot as plt

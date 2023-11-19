@@ -1,7 +1,14 @@
+"""
+Tests for Symbol class.
+"""
 import unittest
+from src.symbol import Symbol
 
 
-class MyTestCase(unittest.TestCase):
+class SymbolTest(unittest.TestCase):
+    """
+    Tests for Symbol class.
+    """
     data = [
         [
             (1, 0, 'V_1', 'red'),
@@ -16,7 +23,10 @@ class MyTestCase(unittest.TestCase):
     ]
 
     def test_from_list(self):
-        from src.symbol import Symbol
+        """
+        Tests if Symbol.from_list() returns a list of symbols.
+        :return: None
+        """
         symbols = Symbol.from_list(self.data)
         self.assertEqual(len(symbols), 2)
         self.assertEqual(symbols[0], Symbol(self.data[0]))

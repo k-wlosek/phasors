@@ -1,5 +1,8 @@
-import numpy as np
+"""
+This module contains the Symbol class, which represents a symbol in a phasor diagram.
+"""
 import dataclasses
+import numpy as np
 
 
 # noinspection PyMethodMayBeStatic
