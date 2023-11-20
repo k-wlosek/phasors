@@ -163,7 +163,7 @@ class Diagram:
         :param filename: name of the file
         :return: None
         """
-        plt.savefig(filename)
+        self.fig.savefig(filename)
 
     def save_as_bytes(self) -> io.BytesIO:
         """
