@@ -47,6 +47,9 @@ class Diagram:
         self.fig, self.ax = plt.subplots()
         self.ax.set_aspect('equal', adjustable='box')
 
+        x_range: list[float] = []
+        y_range: list[float] = []
+
         x_start: float = 0
         y_start: float = 0
 
@@ -61,6 +64,12 @@ class Diagram:
                     continue
                 x_end: float = x_start + length * np.cos(angle)
                 y_end: float = y_start + length * np.sin(angle)
+
+                # Add x and y values for scaling
+                x_range.append(x_end)
+                x_range.append(x_start)
+                y_range.append(y_end)
+                y_range.append(y_start)
 
                 self.ax.quiver(
                     x_start,
@@ -106,6 +115,13 @@ class Diagram:
             x_start, y_start = 0, 0
             x_end = x_start + length * np.cos(angle)
             y_end = y_start + length * np.sin(angle)
+
+            # Add x and y values for scaling
+            x_range.append(x_end)
+            x_range.append(x_start)
+            y_range.append(y_end)
+            y_range.append(y_start)
+
             self.ax.quiver(
                 x_start,
                 y_start,
@@ -119,31 +135,21 @@ class Diagram:
                 headaxislength=3.5
             )
 
-            # Calculate the middle point of the last phasor
-            middle_x = (x_start + x_end) / 2
-            middle_y = (y_start + y_end) / 2
+        # Add -3 to both ranges if min value is 0, so the phasors are not on the edge of the diagram
+        if 0 in x_range:
+            x_range.append(-3)
+        if 0 in y_range:
+            y_range.append(-3)
+        # Set xlim and ylim based on min and max values
+        self.ax.set_xlim(
+            min(x_range) * 1.1,
+            max(x_range) * 1.1
+        )
+        self.ax.set_ylim(
+            min(y_range) * 1.1,
+            max(y_range) * 1.1
+        )
 
-            # Adjust text position for the last phasor (always above)
-            self.ax.annotate(
-                annotation,
-                xy=(middle_x, middle_y),
-                xytext=(middle_x + 0.2, middle_y + 0.7),
-                fontsize=8,
-                color=color
-            )
-
-        # Calculate sum x and y values
-        p: tuple[float, float, str, str]
-        max_x: list[float] = []
-        for symbol in self.symbols:
-            max_x.append(max([p[0] * np.cos(p[1]) for p in symbol]))
-        max_y: list[float] = []
-        for symbol in self.symbols:
-            max_y.append(max([p[0] * np.sin(p[1]) for p in symbol]))
-
-        # Set xlim and ylim based on maximum values
-        self.ax.set_xlim(-1, max(max_x) * 1.2)
-        self.ax.set_ylim(-1, max(max_y) * 1.2)
         self.ax.set_aspect('auto', adjustable='box')
         self.ax.axhline(0, color='black', linewidth=0.5)
         self.ax.axvline(0, color='black', linewidth=0.5)
