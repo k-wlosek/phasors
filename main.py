@@ -6,28 +6,33 @@ from src.symbol import Symbol
 
 phasors_list: list[list[tuple[float, float, str, str]]] = [
     [
-        (3, 0, "U_R1", "green"),
-        (2, 90, "U_L1", "blue"),
-        (1, 90, "U_M", "black"),
-        (3, 0, "U_R2", "green"),
-        (2, 90, "U_L2", "blue"),
-        (1, 90, "U_M", "black"),
-        (8.5, 45, "U", "pink")
+        (66.27, 0, "U_R1", "green"),
+        (169.13, 90, "U_L1", "blue"),
+        (-87.92, 90, "U_M", "black"),
+        (58.76, 0, "U_R2", "green"),
+        (162, 90, "U_L2", "blue"),
+        (-87.92, 90, "U_M", "black"),
+        (200, 57.25, "U", "pink")
     ],
     [
-        (2, 0, "I_R1", "blue"),
-        (1, 90, "I_L1", "black"),
-        (0.5, 90, "I_M", "green"),
-        (1.5, 0, "I_R2", "blue"),
-        (1, 90, "I_L2", "black"),
-        (0.5, 90, "I_M", "green"),
-        (4.25, 45, "I", "red")
+        (0.53, 0, "I", "red")
+    ]
+]
+
+phasors_list2 = [
+    [
+        (181.56, 68.60, "U_LR1", "green"),
+        (172.32, 70.06, "U_LR2", "green"),
+        (-87.91, 90, "U_M", "black"),
+        (-87.91, 90, "U_M", "black"),
+        (199.70, 57.2, "U", "pink")
     ]
 ]
 
 symbols: list[Symbol] = Symbol.from_list(phasors_list)
-d = Diagram(symbols, "Wykres fazorowy w połączeniu szeregowym cewek sprzężonych zgodnie")
+d = Diagram(symbols, "Wykres fazorowy dla pomiaru 1 w sprzężeniu przeciwnym")
 d.create()
 d.show()
+# d.save("fazor4.png")
 byte = d.save_as_bytes()
 print(byte)
