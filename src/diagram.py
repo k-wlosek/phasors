@@ -49,7 +49,7 @@ class Diagram:
         :param last_angle:
         :return:
         """
-        wedge = Wedge(center, size, np.rad2deg(angle), np.rad2deg(last_angle), color='black', alpha=0.5)
+        wedge = Wedge(center, size, np.rad2deg(angle), np.rad2deg(last_angle), color='black', alpha=0.2)
         x_center, y_center = center
         if len(self.symbols) < 3:
             self.ax.annotate(
@@ -155,11 +155,11 @@ class Diagram:
                 middle_y: float = (y_start + y_end) / 2
 
                 # Adjust text position for sideways phasors
-                if 45 < angle % 180 < 135:
+                if 45 < np.rad2deg(angle) % 180 < 135:
                     self.ax.annotate(
                         annotation,
                         xy=(middle_x, middle_y),
-                        xytext=(middle_x + middle_x * 0.2, middle_y + middle_y * 0.1),
+                        xytext=(middle_x + middle_x * 0.1, middle_y - middle_y * 0.1),
                         fontsize=10,
                         color=color
                     )
@@ -167,7 +167,7 @@ class Diagram:
                     self.ax.annotate(
                         annotation,
                         xy=(middle_x, middle_y),
-                        xytext=(middle_x + middle_x * 0.1, middle_y + 0.05 * max(self.scales[j], 1)),
+                        xytext=(middle_x + middle_x * 0.1, middle_y + 0.01 * max(self.scales[j], 1)),
                         fontsize=10,
                         color=color
                     )
@@ -175,7 +175,7 @@ class Diagram:
                     self.ax.annotate(
                         annotation,
                         xy=(middle_x, middle_y),
-                        xytext=(middle_x + middle_x * 0.1, middle_y + middle_y * 0.2),
+                        xytext=(middle_x + middle_x * 0.1, middle_y + middle_y * 0.1),
                         fontsize=10,
                         color=color
                     )
@@ -228,7 +228,7 @@ class Diagram:
                 self.ax.annotate(
                     annotation,
                     xy=(middle_x, middle_y),
-                    xytext=(middle_x + middle_x * 0.1, middle_y + 0.05 * max(self.scales[j], 1)),
+                    xytext=(middle_x + middle_x * 0.1, middle_y + 0.01 * max(self.scales[j], 1)),
                     fontsize=10,
                     color=color
                 )
@@ -297,21 +297,21 @@ class Diagram:
         """
         plt.show()
 
-    def save(self, filename: str) -> None:
+    def save(self, filename: str, format: str = "png") -> None:
         """
         Saves the phasor diagram.
         :param filename: name of the file
         :return: None
         """
-        self.fig.savefig(filename)
+        self.fig.savefig(filename, format=format, dpi=200, bbox_inches='tight')
 
-    def save_as_bytes(self) -> io.BytesIO:
+    def save_as_bytes(self, format: str = "png") -> io.BytesIO:
         """
         Saves the phasor diagram as bytes.
         :return: figure as bytes
         :rtype: io.BytesIO
         """
         buf = io.BytesIO()
-        self.fig.savefig(buf, format='png', dpi=200, bbox_inches='tight')
+        self.fig.savefig(buf, format=format, dpi=200, bbox_inches='tight')
         buf.seek(0)
         return buf
