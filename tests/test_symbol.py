@@ -2,6 +2,7 @@
 Tests for Symbol class.
 """
 import unittest
+from typing import Union
 from src.symbol import Symbol
 
 
@@ -9,16 +10,18 @@ class SymbolTest(unittest.TestCase):
     """
     Tests for Symbol class.
     """
-    data = [
+    data: list[list[Union[tuple[float, float, str, str], str]]] = [
         [
-            (1, 0, 'V_1', 'red'),
-            (1, 90, 'V_2', 'blue'),
-            (1, 180, 'V_3', 'green')
+            (1, 0, 'U_1', 'red'),
+            (1, 90, 'U_2', 'blue'),
+            (1, 180, 'U_3', 'green'),
+            "V"
         ],
         [
             (1, 0, 'I_1', 'red'),
             (1, 90, 'I_2', 'blue'),
-            (1, 180, 'I_3', 'green')
+            (1, 180, 'I_3', 'green'),
+            "A"
         ]
     ]
 

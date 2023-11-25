@@ -2,6 +2,7 @@
 This module contains the Symbol class, which represents a symbol in a phasor diagram.
 """
 import dataclasses
+from typing import Union
 import numpy as np
 
 
@@ -15,9 +16,11 @@ class Symbol:
 
     One symbol is represented by a list of tuples, where each tuple represents a phasor.
     """
-    def __init__(self, data_list):
-        phasors = []
-        for phasor in data_list:
+    def __init__(self, data_list: list[Union[tuple[float, float, str, str], str]]):
+        phasors: list[tuple[float, float, str, str]] = []
+        _data_list = data_list.copy()
+        self.unit = self._prepare_annotation(_data_list.pop(-1))
+        for phasor in _data_list:
             length, angle, annotation, color = phasor
             angle_rad = np.deg2rad(angle)
             phasors.append((length, angle_rad, self._prepare_annotation(annotation), color))
@@ -34,14 +37,16 @@ class Symbol:
         return "$" + annotation[:underscore_location + 1] + "{" + annotation[underscore_location + 1:] + "}$"
 
     @staticmethod
-    def from_list(data_list):
+    def from_list(data_list: list[list[Union[tuple[float, float, str, str], str]]]):
         """
         Returns a list of symbols from a list of lists of tuples representing data for each symbol.
-        :type data_list: list[list[tuple[float, float, str, str]]]
+        :type data_list: list[list[Union[tuple[float, float, str, str], str]]]
         :param data_list: list of lists of tuples representing data for each symbol
         :return: list of symbols
+        :rtype: list[Symbol]
         """
         symbols = []
+        symbol_list: list[Union[tuple[float, float, str, str], str]]
         for symbol_list in data_list:
             symbols.append(Symbol(symbol_list))
         return symbols
