@@ -6,7 +6,7 @@ import io
 import matplotlib.pyplot as plt
 from matplotlib.patches import Wedge
 import numpy as np
-from src.symbol import Symbol
+from phasors.symbol import Symbol
 
 
 # noinspection PyUnusedLocal,PyMethodMayBeStatic
