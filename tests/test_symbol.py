@@ -3,7 +3,7 @@ Tests for Symbol class.
 """
 import unittest
 from typing import Union
-from src.symbol import Symbol
+from phasors.symbol import Symbol
 
 
 class SymbolTest(unittest.TestCase):

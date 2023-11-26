@@ -3,8 +3,8 @@
 """
 from typing import Union
 import base64
-from src.diagram import Diagram
-from src.symbol import Symbol
+from phasors.diagram import Diagram
+from phasors.symbol import Symbol
 
 phasors_list: list[list[Union[tuple[float, float, str, str]], str]] = [
     [
