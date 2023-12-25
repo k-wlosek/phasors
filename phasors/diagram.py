@@ -213,7 +213,7 @@ class Diagram:
         Creates the phasor diagram.
         :return: None
         """
-        self.fig, (self.ax, ax_side) = plt.subplots(1, 2, width_ratios=[12, 1])
+        self.fig, (self.ax, ax_side) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [12, 1]})
         self.ax.set_aspect('equal', adjustable='box')
 
         self.__x_range: list[float] = []
